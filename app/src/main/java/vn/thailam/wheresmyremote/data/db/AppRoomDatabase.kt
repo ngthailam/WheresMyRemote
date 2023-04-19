@@ -8,7 +8,8 @@ import vn.thailam.wheresmyremote.data.entity.PlaceEntity
 
 @Database(
     entities = [PlaceEntity::class],
-    version = AppRoomDatabase.VERSION
+    version = AppRoomDatabase.VERSION,
+    exportSchema = false
 )
 abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun placeDao(): PlaceDao
