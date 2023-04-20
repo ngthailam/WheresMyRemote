@@ -10,7 +10,6 @@ import vn.thailam.wheresmyremote.data.repo.PlaceRepositoryImpl
 @Module
 @InstallIn(ViewModelComponent::class)
 interface PlaceModule {
-
     @Binds
     fun bindPlaceRepository(placeRepositoryImpl: PlaceRepositoryImpl): PlaceRepository
 }

@@ -8,10 +8,14 @@ import androidx.room.PrimaryKey
 data class PlaceEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COL_ID)
-    var id: Int? = null
+    var id: Int? = null,
+
+    @ColumnInfo(name = COL_NAME)
+    val name: String,
 ) {
     companion object {
         const val TBL_NAME = "places"
         const val COL_ID = "id"
+        const val COL_NAME = "name"
     }
 }
