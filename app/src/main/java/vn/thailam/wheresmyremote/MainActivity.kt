@@ -9,14 +9,19 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import vn.thailam.wheresmyremote.ui.feature.additem.AddItemScreen
 import vn.thailam.wheresmyremote.ui.feature.addplace.AddPlaceScreen
 import vn.thailam.wheresmyremote.ui.feature.home.HomeScreen
+import vn.thailam.wheresmyremote.ui.feature.placedetail.PlaceDetailScreen
 import vn.thailam.wheresmyremote.ui.theme.WheresMyRemoteTheme
 import vn.thailam.wheresmyremote.ui.utils.AppDestinations
+import vn.thailam.wheresmyremote.ui.utils.DestinationArg
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -49,6 +54,20 @@ fun AppNavHost(
         composable(AppDestinations.HOME) {
             HomeScreen(navController = navController)
         }
-        composable(AppDestinations.ADD_PLACE) { AddPlaceScreen() }
+        composable(AppDestinations.ADD_PLACE) { AddPlaceScreen(navController = navController) }
+        composable(
+            AppDestinations.ADD_ITEM,
+            arguments = listOf(navArgument(DestinationArg.PLACE_ID) { type = NavType.IntType })
+        ) {
+            val placeId: Int? = it.arguments?.getInt(DestinationArg.PLACE_ID)
+            AddItemScreen(navController = navController, placeId = placeId)
+        }
+        composable(
+            AppDestinations.PLACE_DETAIL,
+            arguments = listOf(navArgument(DestinationArg.PLACE_ID) { type = NavType.IntType })
+        ) {
+            val placeId: Int = it.arguments?.getInt(DestinationArg.PLACE_ID) ?: 0
+            PlaceDetailScreen(navController = navController, placeId = placeId)
+        }
     }
 }

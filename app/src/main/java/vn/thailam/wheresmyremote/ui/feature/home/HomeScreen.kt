@@ -2,6 +2,7 @@ package vn.thailam.wheresmyremote.ui.feature.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import vn.thailam.wheresmyremote.data.entity.PlaceEntity
 import vn.thailam.wheresmyremote.ui.utils.AppDestinations
+import vn.thailam.wheresmyremote.ui.utils.toPlaceDetail
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -48,7 +50,7 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(places.size) { count ->
-                PlaceItem(place = places[count])
+                PlaceItem(place = places[count], navController = navController)
             }
         }
 
@@ -58,35 +60,34 @@ fun HomeScreen(
                 .align(alignment = Alignment.BottomEnd),
             elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp),
             text = {
-                Text(text = "Add Place")
+                Text(text = "Add A Place")
             },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "Add Place FAB",
+                    contentDescription = "Add A Place FAB",
                 )
             },
             onClick = {
                 navController.navigate(route = AppDestinations.ADD_PLACE)
             },
-            expanded = true,
         )
     }
 }
 
 @Composable
-fun PlaceItem(place: PlaceEntity) {
+fun PlaceItem(
+    place: PlaceEntity,
+    navController: NavController,
+) {
     val height = place.id!! * 64
-   Box(modifier = Modifier
-       .background(color = Color.Blue)
-       .height(height.dp)
-   ) {
-       Text(modifier = Modifier.padding(all = 16.dp), text = "${place.id}")
-   }
+    Box(modifier = Modifier
+        .background(color = Color.Blue)
+        .height(height.dp)
+        .clickable {
+            navController.toPlaceDetail(placeId = place.id)
+        }
+    ) {
+        Text(modifier = Modifier.padding(all = 16.dp), text = place.name)
+    }
 }
-
-//@Preview
-//@Composable
-//fun HomeScreenPreview() {
-//    HomeScreen()
-//}
