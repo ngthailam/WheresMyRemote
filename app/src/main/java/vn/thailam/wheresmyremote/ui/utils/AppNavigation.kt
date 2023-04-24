@@ -5,6 +5,7 @@ object AppDestinations {
     const val ADD_PLACE = "place/add"
     const val ADD_ITEM = "item/add?${DestinationArg.PLACE_ID}={${DestinationArg.PLACE_ID}}"
     const val PLACE_DETAIL = "place/detail/{${DestinationArg.PLACE_ID}}"
+    const val CAMERA = "camera"
 
     fun replaceArg(destination: String, data: Pair<String, Any?>): String {
         return destination.replace("{${data.first}}", data.second.toString())
@@ -21,4 +22,5 @@ object AppDestinations {
 
 object DestinationArg {
     const val PLACE_ID = "placeId"
+    const val CAMERA_IMG_URI = "cameraImgUri"
 }

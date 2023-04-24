@@ -5,6 +5,7 @@ buildscript {
         room_version = '2.5.1'
         nav_version = '2.5.3'
         lifecycle_version = '2.6.1'
+        camerax_version = '1.2.2'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

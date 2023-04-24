@@ -17,6 +17,7 @@ import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import vn.thailam.wheresmyremote.ui.feature.additem.AddItemScreen
 import vn.thailam.wheresmyremote.ui.feature.addplace.AddPlaceScreen
+import vn.thailam.wheresmyremote.ui.feature.camera.CameraScreen
 import vn.thailam.wheresmyremote.ui.feature.home.HomeScreen
 import vn.thailam.wheresmyremote.ui.feature.placedetail.PlaceDetailScreen
 import vn.thailam.wheresmyremote.ui.theme.WheresMyRemoteTheme
@@ -54,7 +55,10 @@ fun AppNavHost(
         composable(AppDestinations.HOME) {
             HomeScreen(navController = navController)
         }
-        composable(AppDestinations.ADD_PLACE) { AddPlaceScreen(navController = navController) }
+        composable(AppDestinations.ADD_PLACE) {
+            val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+            AddPlaceScreen(navController = navController, savedStateHandle = savedStateHandle)
+        }
         composable(
             AppDestinations.ADD_ITEM,
             arguments = listOf(navArgument(DestinationArg.PLACE_ID) { type = NavType.IntType })
@@ -68,6 +72,9 @@ fun AppNavHost(
         ) {
             val placeId: Int = it.arguments?.getInt(DestinationArg.PLACE_ID) ?: 0
             PlaceDetailScreen(navController = navController, placeId = placeId)
+        }
+        composable(AppDestinations.CAMERA) {
+            CameraScreen(navController = navController)
         }
     }
 }

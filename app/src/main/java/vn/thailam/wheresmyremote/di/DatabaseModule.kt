@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import vn.thailam.wheresmyremote.data.db.AppRoomDatabase
+import vn.thailam.wheresmyremote.data.db.MIGRATION_2_3
 import javax.inject.Singleton
 
 @Module
@@ -22,7 +23,8 @@ object DatabaseModule {
         AppRoomDatabase::class.java,
         AppRoomDatabase.NAME
     )
-        .fallbackToDestructiveMigration()
+        .addMigrations(MIGRATION_2_3)
+//        .fallbackToDestructiveMigration()
         .build()
 
     @Provides

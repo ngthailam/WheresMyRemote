@@ -16,6 +16,8 @@ class AddPlaceViewModel @Inject constructor(
 ) : ViewModel(), RouteNavigator by routeNavigator {
 
     var name: String = ""
+    var desc: String = ""
+    var imgUriPath: String = ""
 
     fun confirmInsert() = viewModelScope.launch {
         if (name.isEmpty()) {
@@ -23,7 +25,7 @@ class AddPlaceViewModel @Inject constructor(
         }
 
         try {
-            val input = InsertPlaceUseCase.Input(name = name)
+            val input = InsertPlaceUseCase.Input(name = name, desc = desc, imgUriPath = imgUriPath)
             insertPlaceUseCase(input)
             navigate(NavigatorState.Up)
         } catch (t: Throwable) {
@@ -33,5 +35,13 @@ class AddPlaceViewModel @Inject constructor(
 
     fun onNameChanged(text: String) {
         name = text
+    }
+
+    fun onDescChanged(text: String) {
+        desc = text
+    }
+
+    fun onImageUriPathChanged(uri: String) {
+        imgUriPath = uri
     }
 }

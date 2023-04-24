@@ -1,5 +1,6 @@
 package vn.thailam.wheresmyremote.data.db
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import vn.thailam.wheresmyremote.data.dao.ItemDao
@@ -11,7 +12,10 @@ import vn.thailam.wheresmyremote.data.entity.PlaceEntity
 @Database(
     entities = [PlaceEntity::class, ItemEntity::class],
     version = AppRoomDatabase.VERSION,
-    exportSchema = false
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+    ]
 )
 abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun placeDao(): PlaceDao

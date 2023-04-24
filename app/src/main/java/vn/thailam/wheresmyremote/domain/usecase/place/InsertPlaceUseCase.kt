@@ -15,10 +15,14 @@ class InsertPlaceUseCase @Inject constructor(
 
     data class Input(
         val name: String,
+        val desc: String = "",
+        val imgUriPath: String = "",
     ) {
         fun toPlaceEntity(): PlaceEntity {
             return PlaceEntity(
                 name = name,
+                desc = desc,
+                imgUriPath = imgUriPath,
             )
         }
     }
